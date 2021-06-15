@@ -32,6 +32,13 @@ def line():
 def marking(row, col, mark):
     board[row][col] = mark
 
+def availability (row, col):
+    if board[row][col] == 0:
+        return True
+    else:
+        return False
+
+
 def is_full():
     for row in range(ROWS):
         for col in range(COLS):
@@ -39,6 +46,7 @@ def is_full():
                 return False
     return True
 
+print(is_full())
 line()
 
 
@@ -46,4 +54,13 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+
+            mouseX = event.pos[0]
+            mouseY = event.pos[1]
+            
+            click_onX = int(mouseX // 220)
+            click_onY = int(mouseY // 220)
+
     pygame.display.update()
