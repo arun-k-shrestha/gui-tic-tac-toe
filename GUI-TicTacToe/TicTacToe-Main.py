@@ -6,8 +6,8 @@ pygame.init()
 WIDTH = 660  
 HEIGHT = 660
 BG = (30, 160, 150 ) #background color
-C1 = (255, 0, 0)
-C2 = (123, 30, 120)
+CIRCLE_COLOR = (240, 243, 244) # Circle(O) color
+CROSS_COLOR = (112, 123, 124) # Cross(X) color
 
 ROWS = 3
 COLS = 3
@@ -17,6 +17,9 @@ LINE_WIDTH = 15
 
 CIRCLE_RADIUS = 55
 CIRCLE_WIDTH = 15
+
+CROSS_WIDTH = 20
+CROSS_GAP = 60 # It makes a cross stay in the middle on the box without touching the boundries.
 
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption('TicTacToe Game')
@@ -34,12 +37,13 @@ def line():
     pygame.draw.line(screen,LINE_COLOR, (440,0),(440,660), LINE_WIDTH)
 
 def drawing():
-    for r in range(ROWS):
-        for c in range(COLS):
-            if board[r][c] == 1:
-                pygame.draw.circle( screen , C1 , ( int(r*220 + 110), int(c*220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
-            elif board[r][c] == 2:
-                pygame.draw.circle( screen , C2 , ( int(r*220 + 110), int(c*220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
+    for c in range(COLS):
+        for r in range(ROWS):
+            if board[c][r] == 1:
+                pygame.draw.circle( screen , CIRCLE_COLOR , ( int(c*220 + 110), int(r*220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
+            elif board[c][r] == 2:
+                pygame.draw.line( screen, CROSS_COLOR, (c * 220 + CROSS_GAP , r * 220 + 220 - CROSS_GAP), (c * 220 + 220 - CROSS_GAP, r  * 220 + CROSS_GAP), CROSS_WIDTH )
+                pygame.draw.line( screen, CROSS_COLOR, (c * 220 + CROSS_GAP, r * 220 + CROSS_GAP), (c * 220 + 220 - CROSS_GAP, r  * 220 + 220 - CROSS_GAP), CROSS_WIDTH )
 
 def marking(row, col, mark):
     board[row][col] = mark
@@ -86,3 +90,4 @@ while True:
                 drawing()
 
     pygame.display.update()
+
