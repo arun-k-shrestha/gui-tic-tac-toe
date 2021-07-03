@@ -34,9 +34,10 @@ while True:
                 if functions.winning_line() == True or functions.diagonal_lines() == True:
                     game_over = False
 
-        # if event.type == pygame.KEYDOWN:
-        #     if event.key == pygame.K_r:
-        #         functions.restart()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                functions.restart()
+                game_over = True
         
     
     pygame.display.update()
