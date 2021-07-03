@@ -113,28 +113,3 @@ def restart():
         for col in range(3):
             board[row][col]=0
  
-
-def restart_screen():
-   
-    screen.fill( BG )
-    blue = (0, 0, 255)
-    font = pygame.font.Font('freesansbold.ttf', 40)
-    # l= pygame.draw.circle( screen , CIRCLE_COLOR , ( int(220 + 110), int(220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
-
-    if board[0][0]== board[1][1] == board[2][2]== 1 or board[0][2]== board[1][1] == board[2][0]== 1:
-        pygame.draw.circle( screen , CIRCLE_COLOR , ( int(220 + 110), int(220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
-        text = font.render('Wins!', True, CIRCLE_COLOR , BG)
-        screen.blit(text, (400,320))
-
-        text = font.render("Press 'R' to restart", True, CIRCLE_COLOR , BG)
-        screen.blit(text, (155,440))
-            
-
-    elif board[0][0]== board[1][1] == board[2][2]== 2 or board[0][2]== board[1][1] == board[2][0]== 2:
-        pygame.draw.line( screen, CROSS_COLOR, (220 + CROSS_GAP , 220 + 220 - CROSS_GAP), (220 + 220 - CROSS_GAP, 220 + CROSS_GAP), CROSS_WIDTH )
-        pygame.draw.line( screen, CROSS_COLOR, (220 + CROSS_GAP, 220 + CROSS_GAP), (220 + 220 - CROSS_GAP, 220 + 220 - CROSS_GAP), CROSS_WIDTH )
-        text = font.render('Wins!', True, CROSS_COLOR , BG)
-        screen.blit(text, (400,320))
-
-        text = font.render("Press 'R' to restart", True, CROSS_COLOR , BG)
-        screen.blit(text, (155,440))
