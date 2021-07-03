@@ -103,3 +103,12 @@ def diagonal_lines():
     elif board[0][2]== board[1][1] == board[2][0]== 2:
         pygame.draw.line(screen,CROSS_COLOR, (20,640),(640, 20), WINING_LINE_WIDTH)
         return True
+   
+
+def restart():
+    screen.fill(BG)
+    line()
+    player = 1
+    for row in range(3):
+        for col in range(3):
+            board[row][col]=0
