@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame
 import numpy
 
 pygame.init()
@@ -19,7 +19,7 @@ CIRCLE_RADIUS = 55
 CIRCLE_WIDTH = 15
 
 CROSS_WIDTH = 20
-CROSS_GAP = 60 # It makes a cross stay in the middle on the box without touching the boundries.
+CROSS_GAP = 60 # It makes a cross stay in the middle of a square without touching the boundries.
 
 WINING_LINE_WIDTH = 10
 
@@ -28,6 +28,8 @@ pygame.display.set_caption('TicTacToe Game')
 screen.fill( BG )
 
 board = numpy.zeros((3,3))
+
+player = 1
 
 def line():
     #horizontal lines
@@ -38,6 +40,7 @@ def line():
     pygame.draw.line(screen,LINE_COLOR, (220,0),(220,660), LINE_WIDTH)
     pygame.draw.line(screen,LINE_COLOR, (440,0),(440,660), LINE_WIDTH)
 
+
 def drawing():
     for c in range(COLS):
         for r in range(ROWS):
@@ -47,8 +50,6 @@ def drawing():
                 pygame.draw.line( screen, CROSS_COLOR, (c * 220 + CROSS_GAP , r * 220 + 220 - CROSS_GAP), (c * 220 + 220 - CROSS_GAP, r  * 220 + CROSS_GAP), CROSS_WIDTH )
                 pygame.draw.line( screen, CROSS_COLOR, (c * 220 + CROSS_GAP, r * 220 + CROSS_GAP), (c * 220 + 220 - CROSS_GAP, r  * 220 + 220 - CROSS_GAP), CROSS_WIDTH )
 
-def marking(row, col, mark):
-    board[row][col] = mark
 
 def availability (row, col):
     if board[row][col] == 0:
@@ -57,12 +58,18 @@ def availability (row, col):
         return False
 
 
+def marking(row, col, mark):
+    board[row][col] = mark
+
+
+
 def is_full():
     for row in range(ROWS):
         for col in range(COLS):
             if board[row][col]==0:
                 return False
     return True
+
 
 def winning_line():
 
@@ -86,6 +93,24 @@ def winning_line():
             pygame.draw.line(screen,CROSS_COLOR, (110 * (row*2 + 1), 20),(110 * (row*2 + 1), 640), WINING_LINE_WIDTH)
             return True
 
+
+
+def winning_line_check(): # used only in 'restart_screen() function'.
+
+    for col in range(3): 
+        if board[0][col]== board[1][col] == board[2][col] == 1:
+            return True
+        elif board[0][col] == board[1][col] == board[2][col] == 2:
+            return False
+    
+    for row in range(3): 
+        if board[row][0]== board[row][1] == board[row][2] == 1:
+          
+            return True
+        elif board[row][0]== board[row][1] == board[row][2] ==  2:
+            return False
+
+
 def diagonal_lines():
 
     if board[0][0]== board[1][1] == board[2][2]== 1:
@@ -103,7 +128,6 @@ def diagonal_lines():
     elif board[0][2]== board[1][1] == board[2][0]== 2:
         pygame.draw.line(screen,CROSS_COLOR, (20,640),(640, 20), WINING_LINE_WIDTH)
         return True
-   
 
 def restart():
     screen.fill(BG)
@@ -112,4 +136,39 @@ def restart():
     for row in range(3):
         for col in range(3):
             board[row][col]=0
- 
+
+
+def restart_screen():
+   
+    screen.fill( BG )
+    font = pygame.font.Font('freesansbold.ttf', 40)
+
+    if board[0][0]== board[1][1] == board[2][2]== 1 or board[0][2]== board[1][1] == board[2][0]== 1 or winning_line_check() == True:
+        pygame.draw.circle( screen , CIRCLE_COLOR , ( int(220 + 110), int(220 + 110) ), CIRCLE_RADIUS, CIRCLE_WIDTH)
+
+        text = font.render('Wins!', True, CIRCLE_COLOR , BG)
+        screen.blit(text, (400,320))
+
+        text = font.render("Press 'R' to restart", True, CIRCLE_COLOR , BG)
+        screen.blit(text, (155,440))
+            
+
+    elif board[0][0]== board[1][1] == board[2][2]== 2 or board[0][2]== board[1][1] == board[2][0]== 2 or winning_line_check() == False:
+        pygame.draw.line( screen, CROSS_COLOR, (220 + CROSS_GAP , 220 + 220 - CROSS_GAP), (220 + 220 - CROSS_GAP, 220 + CROSS_GAP), CROSS_WIDTH )
+        pygame.draw.line( screen, CROSS_COLOR, (220 + CROSS_GAP, 220 + CROSS_GAP), (220 + 220 - CROSS_GAP, 220 + 220 - CROSS_GAP), CROSS_WIDTH )
+    
+        text = font.render('Wins!', True, CROSS_COLOR , BG)
+        screen.blit(text, (400,320))
+
+        text = font.render("Press 'R' to restart", True, CROSS_COLOR , BG)
+        screen.blit(text, (155,440))
+
+    elif  is_full() == True:
+        text = font.render('Draw!', True, CROSS_COLOR , BG)
+        screen.blit(text, (270,320))
+
+        text = font.render("Press 'R' to restart", True, CROSS_COLOR , BG)
+        screen.blit(text, (155,440))
+        
+        
+        
