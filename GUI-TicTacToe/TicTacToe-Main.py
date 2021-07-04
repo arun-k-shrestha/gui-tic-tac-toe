@@ -1,9 +1,9 @@
 import pygame, sys
-import numpy
 import functions
 
+
 functions.line()
-player = 1
+start = 1
 game_over = True
 
 while True:
@@ -20,25 +20,28 @@ while True:
             click_onY = int(mouseY // 220)
         
             if functions.availability( click_onX, click_onY):
-                if player == 1:
+                if start == 1:
                     functions.marking(click_onX,click_onY,1)
-                    player = 2
-                elif player == 2:
+                    start = 2
+                elif start == 2:
                     functions.marking(click_onX,click_onY,2)
-                    player = 1
+                    start = 1
                 
                 functions.drawing()
                 functions.diagonal_lines()
                 functions.winning_line()
 
-                if functions.winning_line() == True or functions.diagonal_lines() == True:
+                if functions.winning_line()== True or functions.diagonal_lines() == True or functions.is_full():
                     game_over = False
+                    pygame.display.update()
+                    pygame.time.delay(500)
+                    functions.restart_screen()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 functions.restart()
                 game_over = True
-        
-    
+            
     pygame.display.update()
+
 
