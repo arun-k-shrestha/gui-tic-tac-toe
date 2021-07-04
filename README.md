@@ -1,1 +1,1 @@
-# I am still working on this project. This project was made possible with the help of a Youtube video by Coding Spot.
+This project is a user friendly interactive tictactoe. It looks very similar to the google tictactoe. I took a partial help from a youtube video by Coding Spot.
