@@ -6,7 +6,7 @@ This project is a replica of google's tic tac toe with a similar user interface 
 
 Clone this repository to your local machine: 
 
-`git clone https://github.com/arun-k-shrestha/GUI-TicTacToe.git`
+   > Run `git clone https://github.com/arun-k-shrestha/GUI-TicTacToe.git`
 
 ## Package Installation
 
